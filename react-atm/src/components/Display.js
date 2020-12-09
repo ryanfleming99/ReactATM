@@ -3,10 +3,8 @@ import "./Display.css";
 
 function Display() {
   const pin = 0;
-  const enterpin = "Enter Pin:" + `${pin}`;
-
-  let bankAmount = 0;
-  let balance = `${bankAmount}`;
+  const enterpin = "Enter Pin: " + `${pin}`;
+  let balance = [];
 
   return (
     <div class="display">
