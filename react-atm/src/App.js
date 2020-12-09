@@ -3,30 +3,23 @@ import Key from "./components/Key";
 import Display from "./components/Display";
 import axios from "axios";
 
-axios.create({
-  baseURL: `https://frontend-challenge.screencloud-michael.now.sh/api/pin/`
-});
-
-axios({
-  method: "post",
-  url: "https://frontend-challenge.screencloud-michael.now.sh/api/pin/",
-  data: {
-    pin: "",
-    currentBalance: "Williams"
-  }
-});
-
-/* const checkSecurityPin = async () => {
-  let res = await api.post("/", { Pin: "2222" });
-  console.log(res);
-}; */
-
 function App() {
+  const res = axios
+    .post("https://frontend-challenge.screencloud-michael.now.sh/api/pin/", {
+      pin: "1111"
+      // checking if pin matches the pin in JSON
+    })
+    .then(function(response) {
+      const balance = response.data;
+      // returning balance from reponse
+      console.log(balance);
+      // logging balance
+    });
+
   return (
     <div className="App">
       <Display></Display>
       <Key></Key>
-      <button onClick="axios()">Get Data</button>
     </div>
   );
 }
