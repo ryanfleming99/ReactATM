@@ -1,6 +1,6 @@
 # ReactATM
 
-# Requirements
+## Requirements
 
 - allow users to interact with machine
 - allow users to enter a pin
