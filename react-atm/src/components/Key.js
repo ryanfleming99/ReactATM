@@ -3,10 +3,16 @@ import "./Key.css";
 import "./Display.css";
 
 function Key() {
+  const keyClicked = [];
   function handleClick(e) {
-    e.preventDefault();
-    let numberReturned = document.querySelectorAll("button");
-    console.log(numberReturned);
+    keyClicked.push(e.target.id);
+  }
+
+  function checkValue() {
+    let keyClickedString = JSON.stringify(keyClicked);
+    if (keyClickedString.value === "1111") {
+      console.log("correct");
+    }
   }
 
   /* function handleClick(e) {
@@ -17,37 +23,39 @@ function Key() {
   return (
     <div class="wrapper">
       <div class="keypad">
-        <button class="submit">Submit</button>
-        <button class="clear">Clear</button>
+        <button onClick={checkValue} class="submit">
+          Submit
+        </button>
+        <button>Clear</button>
 
         <br></br>
-        <button onClick={handleClick} data-key="49" value="1">
+        <button onClick={handleClick} data-key="49" id="1" value="1">
           1
         </button>
-        <button onClick={handleClick} data-key="50" value="2">
+        <button onClick={handleClick} data-key="50" id="2" value="2">
           2
         </button>
-        <button onClick={handleClick} data-key="51" value="3">
+        <button onClick={handleClick} data-key="51" id="3" value="3">
           3
         </button>
         <br></br>
-        <button onClick={handleClick} data-key="52" value="4">
+        <button onClick={handleClick} data-key="52" id="4" value="4">
           4
         </button>
-        <button onClick={handleClick} data-key="53" value="5">
+        <button onClick={handleClick} data-key="53" id="5" value="5">
           5
         </button>
-        <button onClick={handleClick} data-key="54" value="6">
+        <button onClick={handleClick} data-key="54" id="6" value="6">
           6
         </button>
         <br></br>
-        <button onClick={handleClick} data-key="55" value="7">
+        <button onClick={handleClick} data-key="55" id="7" value="7">
           7
         </button>
-        <button onClick={handleClick} data-key="56" value="8">
+        <button onClick={handleClick} data-key="56" id="8" value="8">
           8
         </button>
-        <button onClick={handleClick} data-key="57" value="9">
+        <button onClick={handleClick} data-key="57" id="9" value="9">
           9
         </button>
       </div>
