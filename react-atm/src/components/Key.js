@@ -1,71 +1,64 @@
 import React from "react";
 import "./Key.css";
 import "./Display.css";
-import axios from "axios";
 
 function Key() {
-  var keyClicked = [];
-
-  function checkValue() {
-    /* let pin = keyClicked.join("");
-    if (pin === "1111") {
-      console.log("Pin Entered Correctly");
-    } else {
-      console.log("Pin Entered Incorrectly");
-    } */
-    var pinCodeSeq = keyClicked.join("");
-
-    console.log(pinCodeSeq);
-    var pinFromApi = ApiRequester;
-    console.log(pinFromApi);
-
-    if (keyClicked === "1111" && keyClicked === ApiRequester) {
-      console.log("Pin is correct!");
-    } else {
-      console.log("Please enter the correct pin");
-    }
-
-    function ApiRequester() {
-      axios
-        .post(
-          "https://frontend-challenge.screencloud-michael.now.sh/api/pin/",
-          {
-            pin: "1111"
-            // checking if pin matches the pin in JSON
-          }
-        )
-        .then(function(response) {
-          let balance = response.data;
-          // returning balance from reponse
-          console.log(balance);
-          // logging balance
-        });
-    }
-  }
-
-  /*
-    keyClicked.join();
-    if (keyClicked.value === "1111") {
-      console.log("yes");
-    } else console.log("no");
-    */
-
-  function clearValue() {
-    keyClicked = [];
-    console.log("pin cleared successfully");
-  }
+  var pinArray = [];
 
   function handleClick(e) {
-    keyClicked.push(e.target.id);
+    pinArray.push(e.target.id);
+    console.log(e.target.id);
+  }
+
+  function checkPin() {
+    var userNumSeq = pinArray.join("");
+    console.log(userNumSeq);
+
+    var pinFromApi = makeCallToApi(userNumSeq);
+    console.log(pinFromApi);
+  }
+
+  function makeCallToApi(pinFromUser) {
+    var data = {
+      pin: pinFromUser
+    };
+
+    fetch("https://frontend-challenge.screencloud-michael.now.sh/api/pin", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    })
+      .then(res => {
+        if (res.ok) {
+          console.log("Correct pin!");
+          return res.json();
+        } else {
+          throw new Error("Wrong pin entered");
+        }
+      })
+      .then(res => {
+        return res;
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  function logPinArray() {
+    console.log(pinArray);
+  }
+
+  function clearArray() {
+    pinArray = [];
   }
 
   return (
     <div className="wrapper">
       <div className="keypad">
-        <button onClick={checkValue} className="submit">
+        <button onClick={checkPin} className="submit">
           Submit
         </button>
-        <button onClick={clearValue} className="clear">
+        <button onClick={clearArray} className="clear">
           Clear
         </button>
 
