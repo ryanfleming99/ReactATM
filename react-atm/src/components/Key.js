@@ -3,30 +3,41 @@ import "./Key.css";
 import "./Display.css";
 
 function Key() {
-  const keyClicked = [];
+  var keyClicked = [];
+
+  function checkValue(e) {
+    let pin = keyClicked.join("");
+    if (pin === "1111") {
+      console.log("Pin Entered Correctly");
+    } else {
+      console.log("Pin Entered Incorrectly");
+    }
+  }
+  /*
+    keyClicked.join();
+    if (keyClicked.value === "1111") {
+      console.log("yes");
+    } else console.log("no");
+    */
+
+  function clearValue() {
+    keyClicked = [];
+    console.log("pin cleared successfully");
+  }
+
   function handleClick(e) {
     keyClicked.push(e.target.id);
   }
 
-  function checkValue() {
-    let keyClickedString = JSON.stringify(keyClicked);
-    if (keyClickedString.value === "1111") {
-      console.log("correct");
-    }
-  }
-
-  /* function handleClick(e) {
-    var val = document.getElementById("one").value
-    console.log(val);
-  } */
-
   return (
-    <div class="wrapper">
-      <div class="keypad">
-        <button onClick={checkValue} class="submit">
+    <div className="wrapper">
+      <div className="keypad">
+        <button onClick={checkValue} className="submit">
           Submit
         </button>
-        <button>Clear</button>
+        <button onClick={clearValue} className="clear">
+          Clear
+        </button>
 
         <br></br>
         <button onClick={handleClick} data-key="49" id="1" value="1">

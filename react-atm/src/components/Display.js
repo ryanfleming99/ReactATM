@@ -5,8 +5,8 @@ function Display() {
   let balance = [];
 
   return (
-    <div class="display">
-      <p class="balance">{balance}</p>
+    <div className="display">
+      <p className="balance">{balance}</p>
     </div>
   );
 }
