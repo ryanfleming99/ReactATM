@@ -18,6 +18,12 @@ const reducer = (state, action) => {
         balance: action.item
       };
 
+    case "CLEAR_INPUT":
+      return {
+        ...state,
+        input: []
+      };
+
     case "SET_WITHDRAW":
       return {
         ...state,

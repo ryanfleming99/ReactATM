@@ -13,28 +13,30 @@ function Key() {
     });
   };
 
-  function handleClick(e) {
+  /* function handleClick(e) {
     keyPressed.push(e.target.id);
     console.log(e.target.id);
-  }
+  } */
 
   function setWithdraw() {
     dispatch({
       type: "SET_WITHDRAW",
       withdrawing: true
     });
-    console.log(withdrawing);
+    dispatch({
+      type: "CLEAR_INPUT"
+    });
   }
 
   const setInput = event => {
     dispatch({
       type: "SET_INPUT",
-      input: event.target.value
+      item: event
     });
   };
 
   function checkPin() {
-    const userNumSeq = keyPressed.join("");
+    const userNumSeq = input.join("");
     console.log(userNumSeq);
 
     const pinFromApi = makeCallToApi(userNumSeq);
@@ -86,42 +88,42 @@ function Key() {
         </button>
 
         <br></br>
-        <button onClick={e => setInput(e)} id="1" value="1">
+        <button onClick={e => setInput(e.target.innerHTML)} id="1" value="1">
           1
         </button>
-        <button onClick={e => setInput(e)} id="2" value="2">
+        <button onClick={e => setInput(e.target.innerHTML)} id="2" value="2">
           2
         </button>
-        <button onClick={e => setInput(e)} id="3" value="3">
+        <button onClick={e => setInput(e.target.innerHTML)} id="3" value="3">
           3
         </button>
         <br></br>
-        <button onClick={e => setInput(e)} id="4" value="4">
+        <button onClick={e => setInput(e.target.innerHTML)} id="4" value="4">
           4
         </button>
-        <button onClick={e => setInput(e)} id="5" value="5">
+        <button onClick={e => setInput(e.target.innerHTML)} id="5" value="5">
           5
         </button>
-        <button onClick={e => setInput(e)} id="6" value="6">
+        <button onClick={e => setInput(e.target.innerHTML)} id="6" value="6">
           6
         </button>
         <br></br>
-        <button onClick={e => setInput(e)} id="7" value="7">
+        <button onClick={e => setInput(e.target.innerHTML)} id="7" value="7">
           7
         </button>
-        <button onClick={e => setInput(e)} id="8" value="8">
+        <button onClick={e => setInput(e.target.innerHTML)} id="8" value="8">
           8
         </button>
-        <button onClick={e => setInput(e)} id="9" value="9">
+        <button onClick={e => setInput(e.target.innerHTML)} id="9" value="9">
           9
         </button>
-        <button onClick={e => setInput(e)} id="0" value="0">
+        <button onClick={e => setInput(e.target.innerHTML)} id="0" value="0">
           0
         </button>
-        <button onClick={e => setInput(e)} id="*" value="*">
+        <button onClick={e => setInput(e.target.innerHTML)} id="*" value="*">
           *
         </button>
-        <button onClick={e => setInput(e)} id="#" value="#">
+        <button onClick={e => setInput(e.target.innerHTML)} id="#" value="#">
           #
         </button>
       </div>

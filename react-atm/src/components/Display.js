@@ -4,15 +4,9 @@ import "./Key.css";
 import { useStateValue } from "../StateProvider";
 
 function Display() {
-  const [{ balance, withdrawing }, dispatch] = useStateValue();
+  const [{ balance, input, withdrawing }, dispatch] = useStateValue();
   return (
-    <div className="display">
-      {withdrawing ? (
-        <p>Enter Amount:</p>
-      ) : (
-        <p className="balance">{balance}</p>
-      )}
-    </div>
+    <div className="display">{withdrawing && <p>Enter Amount: {input}</p>}</div>
   );
 }
 
