@@ -1,34 +1,48 @@
-import { useContext } from "react";
 import "./Key.css";
 import "./Display.css";
 import { useStateValue } from "../StateProvider";
 
 function Key() {
-  var pinArray = [];
-  // const [{ balance }, dispatch] = useStateValue();
+  let keyPressed = [];
+  const [{ balance, input, withdrawing }, dispatch] = useStateValue();
 
-  const setBalance = res => {
+  const setBalance = currentBalance => {
     dispatch({
       type: "SET_BALANCE",
-      balance: res.currentBalance
+      item: currentBalance
     });
   };
 
   function handleClick(e) {
-    pinArray.push(e.target.id);
+    keyPressed.push(e.target.id);
     console.log(e.target.id);
   }
 
+  function setWithdraw() {
+    dispatch({
+      type: "SET_WITHDRAW",
+      withdrawing: true
+    });
+    console.log(withdrawing);
+  }
+
+  const setInput = event => {
+    dispatch({
+      type: "SET_INPUT",
+      input: event.target.value
+    });
+  };
+
   function checkPin() {
-    var userNumSeq = pinArray.join("");
+    const userNumSeq = keyPressed.join("");
     console.log(userNumSeq);
 
-    var pinFromApi = makeCallToApi(userNumSeq);
+    const pinFromApi = makeCallToApi(userNumSeq);
     console.log(pinFromApi);
   }
 
   function makeCallToApi(userNumSeq) {
-    var data = {
+    const data = {
       pin: userNumSeq
     };
 
@@ -46,7 +60,7 @@ function Key() {
         }
       })
       .then(res => {
-        // setBalance(res);
+        setBalance(res.currentBalance);
         console.log(res);
       })
       .catch(error => {
@@ -55,7 +69,7 @@ function Key() {
   }
 
   function clearArray() {
-    pinArray = [];
+    keyPressed = [];
   }
 
   return (
@@ -67,36 +81,48 @@ function Key() {
         <button onClick={clearArray} className="clear">
           Clear
         </button>
+        <button onClick={setWithdraw} className="withdraw">
+          withdraw
+        </button>
 
         <br></br>
-        <button onClick={handleClick} data-key="49" id="1" value="1">
+        <button onClick={e => setInput(e)} id="1" value="1">
           1
         </button>
-        <button onClick={handleClick} data-key="50" id="2" value="2">
+        <button onClick={e => setInput(e)} id="2" value="2">
           2
         </button>
-        <button onClick={handleClick} data-key="51" id="3" value="3">
+        <button onClick={e => setInput(e)} id="3" value="3">
           3
         </button>
         <br></br>
-        <button onClick={handleClick} data-key="52" id="4" value="4">
+        <button onClick={e => setInput(e)} id="4" value="4">
           4
         </button>
-        <button onClick={handleClick} data-key="53" id="5" value="5">
+        <button onClick={e => setInput(e)} id="5" value="5">
           5
         </button>
-        <button onClick={handleClick} data-key="54" id="6" value="6">
+        <button onClick={e => setInput(e)} id="6" value="6">
           6
         </button>
         <br></br>
-        <button onClick={handleClick} data-key="55" id="7" value="7">
+        <button onClick={e => setInput(e)} id="7" value="7">
           7
         </button>
-        <button onClick={handleClick} data-key="56" id="8" value="8">
+        <button onClick={e => setInput(e)} id="8" value="8">
           8
         </button>
-        <button onClick={handleClick} data-key="57" id="9" value="9">
+        <button onClick={e => setInput(e)} id="9" value="9">
           9
+        </button>
+        <button onClick={e => setInput(e)} id="0" value="0">
+          0
+        </button>
+        <button onClick={e => setInput(e)} id="*" value="*">
+          *
+        </button>
+        <button onClick={e => setInput(e)} id="#" value="#">
+          #
         </button>
       </div>
     </div>
