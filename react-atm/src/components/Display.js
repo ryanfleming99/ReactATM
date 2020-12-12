@@ -1,12 +1,13 @@
 import React from "react";
 import "./Display.css";
+import "./Key.css";
+import { useStateValue } from "../StateProvider";
 
 function Display() {
-  let balance = [];
-
+  // const [{ balance }, dispatch] = useStateValue();
   return (
     <div className="display">
-      <p className="balance">{balance}</p>
+      {/* <p className="balance">{res.balance}</p> */}
     </div>
   );
 }

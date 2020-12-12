@@ -1,4 +1,4 @@
-import axios from "axios";
+/* import axios from "axios";
 
 function ApiRequester() {
   axios
@@ -15,3 +15,4 @@ function ApiRequester() {
 }
 
 export default ApiRequester;
+*/

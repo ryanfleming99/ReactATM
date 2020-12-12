@@ -1,9 +1,18 @@
-import React from "react";
+import { useContext } from "react";
 import "./Key.css";
 import "./Display.css";
+import { useStateValue } from "../StateProvider";
 
 function Key() {
   var pinArray = [];
+  // const [{ balance }, dispatch] = useStateValue();
+
+  const setBalance = res => {
+    dispatch({
+      type: "SET_BALANCE",
+      balance: res.currentBalance
+    });
+  };
 
   function handleClick(e) {
     pinArray.push(e.target.id);
@@ -18,9 +27,9 @@ function Key() {
     console.log(pinFromApi);
   }
 
-  function makeCallToApi(pinFromUser) {
+  function makeCallToApi(userNumSeq) {
     var data = {
-      pin: pinFromUser
+      pin: userNumSeq
     };
 
     fetch("https://frontend-challenge.screencloud-michael.now.sh/api/pin", {
@@ -37,15 +46,12 @@ function Key() {
         }
       })
       .then(res => {
-        return res;
+        // setBalance(res);
+        console.log(res);
       })
       .catch(error => {
         console.log(error);
       });
-  }
-
-  function logPinArray() {
-    console.log(pinArray);
   }
 
   function clearArray() {
