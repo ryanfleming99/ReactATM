@@ -4,7 +4,9 @@ import { useStateValue } from "../StateProvider";
 
 function Key() {
   var keyPressed = [];
+  // pin storage
   const [{ balance, loggedIn, input, withdrawing }, dispatch] = useStateValue();
+  // importing reducers from reducer.js
 
   const setBalance = currentBalance => {
     dispatch({
@@ -12,11 +14,6 @@ function Key() {
       item: currentBalance
     });
   };
-
-  /* function handleClick(e) {
-    keyPressed.push(e.target.id);
-    console.log(e.target.id);
-  } */
 
   function setWithdraw() {
     dispatch({
@@ -37,6 +34,7 @@ function Key() {
   };
 
   function checkPin() {
+    // if user is not logged in, call api to check the input, .join() used as key pressed are stored in the keyPressed Array
     if (!loggedIn) {
       const userNumSeq = input.join("");
       console.log(userNumSeq);
@@ -44,6 +42,7 @@ function Key() {
       const pinFromApi = makeCallToApi(userNumSeq);
       console.log(pinFromApi);
 
+      // take the user pin entered and assign it to the value of the key
       function makeCallToApi(userNumSeq) {
         const data = {
           pin: userNumSeq
@@ -55,6 +54,7 @@ function Key() {
           body: JSON.stringify(data)
         })
           .then(res => {
+            // if status 200 is returned, pin is correct
             if (res.ok) {
               console.log("Correct pin!");
               return res.json();
@@ -73,6 +73,8 @@ function Key() {
             });
             console.log(loggedIn);
           })
+
+          // if status is not 200, pin is incorrect and error is thrown via dispatch call to reducer
           .catch(error => {
             console.log(error);
             dispatch({
@@ -86,6 +88,8 @@ function Key() {
       }
     }
     if (loggedIn && withdrawing) {
+      // if pin is entered  correctly & withdrawing
+      // dispatch looks into the reducer for a type to action
       if (input <= balance) {
         dispatch({
           type: "START_WITHDRAW"
@@ -102,6 +106,7 @@ function Key() {
     }
   }
 
+  // clear array function for clear button
   function clearArray() {
     keyPressed = [];
   }
@@ -120,6 +125,7 @@ function Key() {
         </button>
 
         <br></br>
+        {/* setInput takes innerHTML of button as a parameter and passes to setInput function */}
         <button onClick={e => setInput(e.target.innerHTML)} id="1" value="1">
           1
         </button>
