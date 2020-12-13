@@ -1,18 +1,15 @@
 button {
-  display: inline-block;
   width: 7.8vw;
   border: none;
   padding: 1rem 2rem;
   margin: 0;
+  font-size: 20px;
   background: #0069ed;
   color: #ffffff;
   font-family: sans-serif;
   border-radius: 20px;
   cursor: pointer;
-  text-align: center;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  margin: 30px;
+  margin: 25px;
 }
 
 button:hover,
@@ -46,11 +43,13 @@ button:active {
   background: black;
 }
 
-.submit {
+.submit,
+.withdraw {
   background-color: rgb(113, 177, 111);
+  font-size: 20px;
 }
 
-.clear,
-.withdraw {
-  background-color: rgb(255, 136, 136);
+.clear {
+  background-color: rgb(192, 78, 78);
+  font-size: 20px;
 }
