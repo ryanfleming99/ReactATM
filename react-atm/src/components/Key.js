@@ -3,8 +3,8 @@ import "./Display.css";
 import { useStateValue } from "../StateProvider";
 
 function Key() {
-  let keyPressed = [];
-  const [{ balance, input, withdrawing }, dispatch] = useStateValue();
+  var keyPressed = [];
+  const [{ balance, loggedIn, input, withdrawing }, dispatch] = useStateValue();
 
   const setBalance = currentBalance => {
     dispatch({
@@ -28,46 +28,78 @@ function Key() {
     });
   }
 
-  const setInput = event => {
+  const setInput = e => {
     dispatch({
       type: "SET_INPUT",
-      item: event
+      item: e
     });
+    console.log(e);
   };
 
   function checkPin() {
-    const userNumSeq = input.join("");
-    console.log(userNumSeq);
+    if (!loggedIn) {
+      const userNumSeq = input.join("");
+      console.log(userNumSeq);
 
-    const pinFromApi = makeCallToApi(userNumSeq);
-    console.log(pinFromApi);
-  }
+      const pinFromApi = makeCallToApi(userNumSeq);
+      console.log(pinFromApi);
 
-  function makeCallToApi(userNumSeq) {
-    const data = {
-      pin: userNumSeq
-    };
+      function makeCallToApi(userNumSeq) {
+        const data = {
+          pin: userNumSeq
+        };
 
-    fetch("https://frontend-challenge.screencloud-michael.now.sh/api/pin", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    })
-      .then(res => {
-        if (res.ok) {
-          console.log("Correct pin!");
-          return res.json();
-        } else {
-          throw new Error("Wrong pin entered");
-        }
-      })
-      .then(res => {
-        setBalance(res.currentBalance);
-        console.log(res);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+        fetch("https://frontend-challenge.screencloud-michael.now.sh/api/pin", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        })
+          .then(res => {
+            if (res.ok) {
+              console.log("Correct pin!");
+              return res.json();
+            } else {
+              throw new Error("Wrong pin entered");
+            }
+          })
+          .then(res => {
+            setBalance(res.currentBalance);
+            dispatch({
+              type: "LOGGED_IN"
+            });
+            dispatch({
+              type: "LOGGED_IN_ERROR",
+              item: false
+            });
+            console.log(loggedIn);
+          })
+          .catch(error => {
+            console.log(error);
+            dispatch({
+              type: "LOGGED_IN_ERROR",
+              item: true
+            });
+            dispatch({
+              type: "CLEAR_INPUT"
+            });
+          });
+      }
+    }
+    if (loggedIn && withdrawing) {
+      if (input <= balance) {
+        dispatch({
+          type: "START_WITHDRAW"
+        });
+        dispatch({
+          type: "SET_WITHDRAW",
+          withdrawing: false
+        });
+      } else {
+        dispatch({
+          type: "OVERDRAFT_WARNING"
+        });
+      }
+    }
   }
 
   function clearArray() {
@@ -84,7 +116,7 @@ function Key() {
           Clear
         </button>
         <button onClick={setWithdraw} className="withdraw">
-          withdraw
+          Withdraw
         </button>
 
         <br></br>

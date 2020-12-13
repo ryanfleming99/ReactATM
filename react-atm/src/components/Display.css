@@ -1,15 +1,21 @@
 .display {
   display: inline-block;
-  padding: 1rem 2rem;
   text-decoration: none;
-  background: #0069ed;
+  background: black;
   color: #ffffff;
   font-family: sans-serif;
-  font-size: 3em;
-  cursor: pointer;
+  font-size: 20px;
   text-align: center;
-  width: 30vw;
+  width: 100vw;
   height: 30vh;
-  border: 2px solid white;
+  border: 1px solid grey;
   border-radius: 10px;
+}
+
+.errorMessage {
+  color: #df4646;
+}
+
+.successMessage {
+  color: green;
 }

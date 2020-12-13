@@ -1,7 +1,12 @@
+import { current } from "immer";
+
 export const initialState = {
   balance: 0,
   withdrawing: false,
-  input: []
+  input: [],
+  loggedIn: false,
+  logInError: false,
+  overdraft: false
 };
 
 const reducer = (state, action) => {
@@ -18,6 +23,18 @@ const reducer = (state, action) => {
         balance: action.item
       };
 
+    case "LOGGED_IN":
+      return {
+        ...state,
+        loggedIn: true
+      };
+
+    case "LOGGED_IN_ERROR":
+      return {
+        ...state,
+        logInError: action.item
+      };
+
     case "CLEAR_INPUT":
       return {
         ...state,
@@ -28,6 +45,19 @@ const reducer = (state, action) => {
       return {
         ...state,
         withdrawing: action.withdrawing
+      };
+
+    case "START_WITHDRAW":
+      return {
+        ...state,
+        balance: state.balance - state.input.join("")
+      };
+
+    case "OVERDRAFT_WARNING":
+      return {
+        ...state,
+        balance: state.balance - state.input.join(""),
+        overdraft: true
       };
 
     default:
